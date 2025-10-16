@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSMemKit - 포켓몬스터 골드/실버 메모리 에디터</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title">GSMemKit</h1>
+            <p class="subtitle">포켓몬스터 골드/실버 메모리 에디터</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="party">파티</button>
+            <button class="tab-btn" data-tab="items">도구</button>
+            <button class="tab-btn" data-tab="trainer">트레이너 포획</button>
+        </nav>
+
+        <!-- Tab Content -->
+        <main class="tab-content">
+            <!-- Party Pokemon Tab -->
+            <section id="party-tab" class="tab-pane active">
+                <h2>파티 포켓몬 에디팅</h2>
+
+                <div class="party-slots">
+                    <!-- Party Slot 1 -->
+                    <div class="party-slot">
+                        <div class="slot-header">
+                            <label class="slot-number">슬롯 1</label>
+                            <input type="checkbox" class="slot-enabled" checked>
+                        </div>
+
+                        <div class="form-group">
+                            <label>포켓몬 종족</label>
+                            <select class="pokemon-species">
+                                <option value="">선택하세요</option>
+                                <option value="0x19">피카츄 (0x19)</option>
+                                <option value="0x96">이브이 (0x96)</option>
+                                <option value="0x03">이상해씨 (0x03)</option>
+                                <option value="0x09">꼬부기 (0x09)</option>
+                                <option value="0x06">파이리 (0x06)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>레벨</label>
+                            <input type="number" class="pokemon-level" min="1" max="100" value="50">
+                        </div>
+                    </div>
+
+                    <!-- Party Slot 2 -->
+                    <div class="party-slot">
+                        <div class="slot-header">
+                            <label class="slot-number">슬롯 2</label>
+                            <input type="checkbox" class="slot-enabled">
+                        </div>
+
+                        <div class="form-group">
+                            <label>포켓몬 종족</label>
+                            <select class="pokemon-species" disabled>
+                                <option value="">선택하세요</option>
+                                <option value="0x19">피카츄 (0x19)</option>
+                                <option value="0x96">이브이 (0x96)</option>
+                                <option value="0x03">이상해씨 (0x03)</option>
+                                <option value="0x09">꼬부기 (0x09)</option>
+                                <option value="0x06">파이리 (0x06)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>레벨</label>
+                            <input type="number" class="pokemon-level" min="1" max="100" value="50" disabled>
+                        </div>
+                    </div>
+
+                    <!-- More slots can be added similarly -->
+                </div>
+            </section>
+
+            <!-- Items Tab -->
+            <section id="items-tab" class="tab-pane">
+                <h2>도구 에디팅</h2>
+                <p class="coming-soon">개발 중...</p>
+            </section>
+
+            <!-- Trainer Capture Tab -->
+            <section id="trainer-tab" class="tab-pane">
+                <h2>트레이너 포켓몬 포획</h2>
+                <div class="form-group">
+                    <label class="toggle-label">
+                        <input type="checkbox" id="trainer-capture-toggle">
+                        <span>트레이너 포켓몬 포획 활성화</span>
+                    </label>
+                    <p class="warning">⚠️ 이 기능은 게임 진행에 영향을 줄 수 있습니다.</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn btn-primary" id="generate-btn">생성</button>
+            <button class="btn btn-secondary" id="reset-btn">초기화</button>
+        </div>
+
+        <!-- Output Table -->
+        <section class="output-section">
+            <h2>출력 결과</h2>
+            <div class="output-actions">
+                <button class="btn btn-small" id="copy-btn">복사</button>
+                <button class="btn btn-small" id="download-btn">CSV 다운로드</button>
+            </div>
+            <div class="table-container">
+                <table class="output-table" id="output-table">
+                    <thead>
+                        <tr>
+                            <th>주소</th>
+                            <th>값 (HEX)</th>
+                            <th>설명</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="empty-state">
+                            <td colspan="3">생성 버튼을 눌러 메모리 값을 생성하세요.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>GSMemKit v0.1 | <a href="https://github.com" target="_blank">GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/pokemon.js"></script>
+    <script src="js/memory.js"></script>
+</body>
+</html>
