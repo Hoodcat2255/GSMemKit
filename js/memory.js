@@ -12,7 +12,7 @@ function renderOutputTable(entries) {
 
     // Check if empty
     if (entries.length === 0) {
-        tbody.innerHTML = '<tr class="empty-state"><td colspan="2">생성할 메모리 값이 없습니다. 슬롯을 활성화하고 값을 입력해주세요.</td></tr>';
+        tbody.innerHTML = '<tr class="empty-state"><td colspan="3">생성할 메모리 값이 없습니다. 슬롯을 활성화하고 값을 입력해주세요.</td></tr>';
         return;
     }
 
@@ -31,6 +31,10 @@ function renderOutputTable(entries) {
         valueCell.textContent = entry.value;
         row.appendChild(valueCell);
 
+        const descriptionCell = document.createElement('td');
+        descriptionCell.textContent = entry.description || '-';
+        row.appendChild(descriptionCell);
+
         tbody.appendChild(row);
     });
 }
@@ -47,18 +51,25 @@ function formatAddress(address) {
 /**
  * Memory Map Reference
  *
- * Pokemon Gold/Silver (Japanese/English version)
- * Note: Korean version addresses may differ and need verification
+ * Pokemon Gold/Silver Korean Version
+ * Verified addresses for Korean ROM
  *
  * Party Pokemon:
- * - Party count: 0xDCD7 (1 byte)
- * - Party data: 0xDCD8~ (48 bytes per Pokemon)
+ * - Party count: 0xDB1F (1 byte)
+ * - Party species list: 0xDB20-0xDB25 (6 bytes, 1-6 slots)
+ * - Species list terminator: 0xDB26 (0xFF)
+ * - Party data: 0xDB27~ (48 bytes per Pokemon)
  *   - Offset +0x00: Species ID
  *   - Offset +0x01: Held Item
  *   - Offset +0x02-0x05: Moves 1-4
+ *   - Offset +0x08-0x0A: Experience (3 bytes)
+ *   - Offset +0x15: Attack/Defense IV (upper 4 bits / lower 4 bits)
+ *   - Offset +0x16: Speed/Special IV (upper 4 bits / lower 4 bits)
+ *   - Offset +0x17-0x1A: PP for moves 1-4
+ *   - Offset +0x1B: Friendship
  *   - Offset +0x1F: Level
- *   - Offset +0x22-0x23: Current HP
- *   - Offset +0x24-0x25: Max HP
+ *   - Offset +0x22-0x23: Current HP (2 bytes)
+ *   - Offset +0x24-0x25: Max HP (2 bytes)
  *
  * Items:
  * - Bag items: 0xD892~ (Item ID + Quantity pairs)
@@ -69,25 +80,41 @@ function formatAddress(address) {
  */
 
 /**
- * Memory address constants
+ * Memory address constants (Korean Version)
  */
 const MEMORY_MAP = {
-    PARTY_COUNT: 0xDCD7,
-    PARTY_DATA_START: 0xDCD8,
+    // Party meta
+    PARTY_COUNT: 0xDB1F,
+    PARTY_SPECIES_LIST_START: 0xDB20,
+    PARTY_SPECIES_TERMINATOR: 0xDB26,
+
+    // Party data
+    PARTY_DATA_START: 0xDB27,
     PARTY_POKEMON_SIZE: 48,
 
+    // Offsets
     OFFSET_SPECIES: 0x00,
     OFFSET_HELD_ITEM: 0x01,
     OFFSET_MOVE_1: 0x02,
     OFFSET_MOVE_2: 0x03,
     OFFSET_MOVE_3: 0x04,
     OFFSET_MOVE_4: 0x05,
+    OFFSET_EXPERIENCE: 0x08,
+    OFFSET_IV_ATK_DEF: 0x15,
+    OFFSET_IV_SPD_SPC: 0x16,
+    OFFSET_PP_1: 0x17,
+    OFFSET_PP_2: 0x18,
+    OFFSET_PP_3: 0x19,
+    OFFSET_PP_4: 0x1A,
+    OFFSET_FRIENDSHIP: 0x1B,
     OFFSET_LEVEL: 0x1F,
     OFFSET_CURRENT_HP: 0x22,
     OFFSET_MAX_HP: 0x24,
 
+    // Items
     BAG_ITEMS_START: 0xD892,
     ITEM_TERMINATOR: 0xFF,
 
+    // Trainer Capture
     TRAINER_CAPTURE_FLAG: 0xD0E0 // Placeholder
 };

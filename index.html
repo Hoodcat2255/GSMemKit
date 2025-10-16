@@ -50,23 +50,397 @@
                         </div>
 
                         <form class="edit-form">
-                            <div class="form-group">
-                                <label>포켓몬 종족</label>
-                                <select id="edit-species" class="pokemon-species">
-                                    <option value="">선택하세요</option>
-                                    <option value="0x19">피카츄 (0x19)</option>
-                                    <option value="0x96">이브이 (0x96)</option>
-                                    <option value="0x03">이상해씨 (0x03)</option>
-                                    <option value="0x09">꼬부기 (0x09)</option>
-                                    <option value="0x06">파이리 (0x06)</option>
-                                    <option value="0x99">뮤 (0x99)</option>
-                                    <option value="0x95">뮤츠 (0x95)</option>
-                                </select>
+                            <!-- Basic Info Section -->
+                            <div class="form-section">
+                                <h4 class="section-title">기본 정보</h4>
+
+                                <div class="form-group">
+                                    <label>포켓몬 종족</label>
+                                    <select id="edit-species">
+                                        <option value="">선택하세요</option>
+                                        <optgroup label="1세대 (관동)">
+                                            <option value="0x01">1. 이상해씨</option>
+                                            <option value="0x02">2. 이상해풀</option>
+                                            <option value="0x03">3. 이상해꽃</option>
+                                            <option value="0x04">4. 파이리</option>
+                                            <option value="0x05">5. 리자드</option>
+                                            <option value="0x06">6. 리자몽</option>
+                                            <option value="0x07">7. 꼬부기</option>
+                                            <option value="0x08">8. 어니부기</option>
+                                            <option value="0x09">9. 거북왕</option>
+                                            <option value="0x0A">10. 캐터피</option>
+                                            <option value="0x0B">11. 단데기</option>
+                                            <option value="0x0C">12. 버터플</option>
+                                            <option value="0x0D">13. 뿔충이</option>
+                                            <option value="0x0E">14. 딱충이</option>
+                                            <option value="0x0F">15. 독침붕</option>
+                                            <option value="0x10">16. 구구</option>
+                                            <option value="0x11">17. 피죤</option>
+                                            <option value="0x12">18. 피죤투</option>
+                                            <option value="0x13">19. 꼬렛</option>
+                                            <option value="0x14">20. 레트라</option>
+                                            <option value="0x15">21. 깨비참</option>
+                                            <option value="0x16">22. 깨비드릴조</option>
+                                            <option value="0x17">23. 아보</option>
+                                            <option value="0x18">24. 아보크</option>
+                                            <option value="0x19">25. 피카츄</option>
+                                            <option value="0x1A">26. 라이츄</option>
+                                            <option value="0x1B">27. 모래두지</option>
+                                            <option value="0x1C">28. 고지</option>
+                                            <option value="0x1D">29. 니드런♀</option>
+                                            <option value="0x1E">30. 니드리나</option>
+                                            <option value="0x1F">31. 니드퀸</option>
+                                            <option value="0x20">32. 니드런♂</option>
+                                            <option value="0x21">33. 니드리노</option>
+                                            <option value="0x22">34. 니드킹</option>
+                                            <option value="0x23">35. 삐삐</option>
+                                            <option value="0x24">36. 픽시</option>
+                                            <option value="0x25">37. 식스테일</option>
+                                            <option value="0x26">38. 나인테일</option>
+                                            <option value="0x27">39. 푸린</option>
+                                            <option value="0x28">40. 푸크린</option>
+                                            <option value="0x29">41. 쥬뱃</option>
+                                            <option value="0x2A">42. 골뱃</option>
+                                            <option value="0x2B">43. 뚜벅쵸</option>
+                                            <option value="0x2C">44. 냄새꼬</option>
+                                            <option value="0x2D">45. 라플레시아</option>
+                                            <option value="0x2E">46. 파라스</option>
+                                            <option value="0x2F">47. 파라섹트</option>
+                                            <option value="0x30">48. 콘팡</option>
+                                            <option value="0x31">49. 도나리</option>
+                                            <option value="0x32">50. 디그다</option>
+                                            <option value="0x33">51. 닥트리오</option>
+                                            <option value="0x34">52. 나옹</option>
+                                            <option value="0x35">53. 페르시온</option>
+                                            <option value="0x36">54. 고라파덕</option>
+                                            <option value="0x37">55. 골덕</option>
+                                            <option value="0x38">56. 망키</option>
+                                            <option value="0x39">57. 성원숭</option>
+                                            <option value="0x3A">58. 가디</option>
+                                            <option value="0x3B">59. 윈디</option>
+                                            <option value="0x3C">60. 발챙이</option>
+                                            <option value="0x3D">61. 수륙챙이</option>
+                                            <option value="0x3E">62. 강챙이</option>
+                                            <option value="0x3F">63. 케이시</option>
+                                            <option value="0x40">64. 윤겔라</option>
+                                            <option value="0x41">65. 후딘</option>
+                                            <option value="0x42">66. 알통몬</option>
+                                            <option value="0x43">67. 근육몬</option>
+                                            <option value="0x44">68. 괴력몬</option>
+                                            <option value="0x45">69. 모다피</option>
+                                            <option value="0x46">70. 우츠동</option>
+                                            <option value="0x47">71. 우츠보트</option>
+                                            <option value="0x48">72. 왕눈해</option>
+                                            <option value="0x49">73. 독파리</option>
+                                            <option value="0x4A">74. 꼬마돌</option>
+                                            <option value="0x4B">75. 데구리</option>
+                                            <option value="0x4C">76. 딱구리</option>
+                                            <option value="0x4D">77. 포니타</option>
+                                            <option value="0x4E">78. 날쌩마</option>
+                                            <option value="0x4F">79. 야돈</option>
+                                            <option value="0x50">80. 야도란</option>
+                                            <option value="0x51">81. 코일</option>
+                                            <option value="0x52">82. 레어코일</option>
+                                            <option value="0x53">83. 파오리</option>
+                                            <option value="0x54">84. 두두</option>
+                                            <option value="0x55">85. 두트리오</option>
+                                            <option value="0x56">86. 쥬쥬</option>
+                                            <option value="0x57">87. 쥬래곤</option>
+                                            <option value="0x58">88. 질퍽이</option>
+                                            <option value="0x59">89. 질뻐기</option>
+                                            <option value="0x5A">90. 셀러</option>
+                                            <option value="0x5B">91. 파르셀</option>
+                                            <option value="0x5C">92. 고오스</option>
+                                            <option value="0x5D">93. 고우스트</option>
+                                            <option value="0x5E">94. 팬텀</option>
+                                            <option value="0x5F">95. 롱스톤</option>
+                                            <option value="0x60">96. 슬리프</option>
+                                            <option value="0x61">97. 슬리퍼</option>
+                                            <option value="0x62">98. 크랩</option>
+                                            <option value="0x63">99. 킹크랩</option>
+                                            <option value="0x64">100. 찌리리공</option>
+                                            <option value="0x65">101. 붐볼</option>
+                                            <option value="0x66">102. 아라리</option>
+                                            <option value="0x67">103. 나시</option>
+                                            <option value="0x68">104. 탕구리</option>
+                                            <option value="0x69">105. 텅구리</option>
+                                            <option value="0x6A">106. 시라소몬</option>
+                                            <option value="0x6B">107. 홍수몬</option>
+                                            <option value="0x6C">108. 내루미</option>
+                                            <option value="0x6D">109. 또가스</option>
+                                            <option value="0x6E">110. 또도가스</option>
+                                            <option value="0x6F">111. 뿔카노</option>
+                                            <option value="0x70">112. 꼬뿌리</option>
+                                            <option value="0x71">113. 럭키</option>
+                                            <option value="0x72">114. 덩쿠리</option>
+                                            <option value="0x73">115. 캥카</option>
+                                            <option value="0x74">116. 쏘드라</option>
+                                            <option value="0x75">117. 시드라</option>
+                                            <option value="0x76">118. 콘치</option>
+                                            <option value="0x77">119. 왕콘치</option>
+                                            <option value="0x78">120. 별가사리</option>
+                                            <option value="0x79">121. 아쿠스타</option>
+                                            <option value="0x7A">122. 마임맨</option>
+                                            <option value="0x7B">123. 스라크</option>
+                                            <option value="0x7C">124. 루주라</option>
+                                            <option value="0x7D">125. 에레브</option>
+                                            <option value="0x7E">126. 마그마</option>
+                                            <option value="0x7F">127. 쁘사이져</option>
+                                            <option value="0x80">128. 켄타로스</option>
+                                            <option value="0x81">129. 잉어킹</option>
+                                            <option value="0x82">130. 갸라도스</option>
+                                            <option value="0x83">131. 라프라스</option>
+                                            <option value="0x84">132. 메타몽</option>
+                                            <option value="0x85">133. 이브이</option>
+                                            <option value="0x86">134. 샤미드</option>
+                                            <option value="0x87">135. 쥬피썬더</option>
+                                            <option value="0x88">136. 부스터</option>
+                                            <option value="0x89">137. 폴리곤</option>
+                                            <option value="0x8A">138. 암나이트</option>
+                                            <option value="0x8B">139. 암스타</option>
+                                            <option value="0x8C">140. 투구</option>
+                                            <option value="0x8D">141. 투구푸스</option>
+                                            <option value="0x8E">142. 프테라</option>
+                                            <option value="0x8F">143. 잠만보</option>
+                                            <option value="0x90">144. 프리져</option>
+                                            <option value="0x91">145. 썬더</option>
+                                            <option value="0x92">146. 파이어</option>
+                                            <option value="0x93">147. 미뇽</option>
+                                            <option value="0x94">148. 신뇽</option>
+                                            <option value="0x95">149. 망나뇽</option>
+                                            <option value="0x96">150. 뮤츠</option>
+                                            <option value="0x97">151. 뮤</option>
+                                        </optgroup>
+                                        <optgroup label="2세대 (성도)">
+                                            <option value="0x98">152. 치코리타</option>
+                                            <option value="0x99">153. 베이리프</option>
+                                            <option value="0x9A">154. 메가니움</option>
+                                            <option value="0x9B">155. 브케인</option>
+                                            <option value="0x9C">156. 마그케인</option>
+                                            <option value="0x9D">157. 블레이범</option>
+                                            <option value="0x9E">158. 리아코</option>
+                                            <option value="0x9F">159. 엘리게이</option>
+                                            <option value="0xA0">160. 장크로다일</option>
+                                            <option value="0xA1">161. 꼬리선</option>
+                                            <option value="0xA2">162. 다꼬리</option>
+                                            <option value="0xA3">163. 부우부</option>
+                                            <option value="0xA4">164. 야부엉</option>
+                                            <option value="0xA5">165. 레디바</option>
+                                            <option value="0xA6">166. 레디안</option>
+                                            <option value="0xA7">167. 페이검</option>
+                                            <option value="0xA8">168. 아리아도스</option>
+                                            <option value="0xA9">169. 크로뱃</option>
+                                            <option value="0xAA">170. 초라기</option>
+                                            <option value="0xAB">171. 랜턴</option>
+                                            <option value="0xAC">172. 피츄</option>
+                                            <option value="0xAD">173. 삐</option>
+                                            <option value="0xAE">174. 푸푸린</option>
+                                            <option value="0xAF">175. 토게피</option>
+                                            <option value="0xB0">176. 토게틱</option>
+                                            <option value="0xB1">177. 네이티</option>
+                                            <option value="0xB2">178. 네이티오</option>
+                                            <option value="0xB3">179. 메리프</option>
+                                            <option value="0xB4">180. 보송송</option>
+                                            <option value="0xB5">181. 전룡</option>
+                                            <option value="0xB6">182. 아르코</option>
+                                            <option value="0xB7">183. 마릴</option>
+                                            <option value="0xB8">184. 마릴리</option>
+                                            <option value="0xB9">185. 꼬지모</option>
+                                            <option value="0xBA">186. 왕구리</option>
+                                            <option value="0xBB">187. 통통코</option>
+                                            <option value="0xBC">188. 두코</option>
+                                            <option value="0xBD">189. 솜솜코</option>
+                                            <option value="0xBE">190. 에이팜</option>
+                                            <option value="0xBF">191. 해너츠</option>
+                                            <option value="0xC0">192. 해루미</option>
+                                            <option value="0xC1">193. 왕자리</option>
+                                            <option value="0xC2">194. 우파</option>
+                                            <option value="0xC3">195. 누오</option>
+                                            <option value="0xC4">196. 에브이</option>
+                                            <option value="0xC5">197. 블랙키</option>
+                                            <option value="0xC6">198. 니로우</option>
+                                            <option value="0xC7">199. 야도킹</option>
+                                            <option value="0xC8">200. 무우마</option>
+                                            <option value="0xC9">201. 안농</option>
+                                            <option value="0xCA">202. 마자용</option>
+                                            <option value="0xCB">203. 키링키</option>
+                                            <option value="0xCC">204. 피콘</option>
+                                            <option value="0xCD">205. 쏘콘</option>
+                                            <option value="0xCE">206. 노고치</option>
+                                            <option value="0xCF">207. 글래이거</option>
+                                            <option value="0xD0">208. 강철톤</option>
+                                            <option value="0xD1">209. 블루</option>
+                                            <option value="0xD2">210. 그랑블루</option>
+                                            <option value="0xD3">211. 침바루</option>
+                                            <option value="0xD4">212. 핫삼</option>
+                                            <option value="0xD5">213. 단단지</option>
+                                            <option value="0xD6">214. 헤라크로스</option>
+                                            <option value="0xD7">215. 포푸니</option>
+                                            <option value="0xD8">216. 깜지곰</option>
+                                            <option value="0xD9">217. 링곰</option>
+                                            <option value="0xDA">218. 마그마그</option>
+                                            <option value="0xDB">219. 마그카르고</option>
+                                            <option value="0xDC">220. 꾸꾸리</option>
+                                            <option value="0xDD">221. 메꾸리</option>
+                                            <option value="0xDE">222. 코산호</option>
+                                            <option value="0xDF">223. 총어</option>
+                                            <option value="0xE0">224. 대포문어</option>
+                                            <option value="0xE1">225. 딜리버드</option>
+                                            <option value="0xE2">226. 만타인</option>
+                                            <option value="0xE3">227. 무장조</option>
+                                            <option value="0xE4">228. 델빌</option>
+                                            <option value="0xE5">229. 헬가</option>
+                                            <option value="0xE6">230. 킹드라</option>
+                                            <option value="0xE7">231. 코코리</option>
+                                            <option value="0xE8">232. 코리갑</option>
+                                            <option value="0xE9">233. 폴리곤2</option>
+                                            <option value="0xEA">234. 노라키</option>
+                                            <option value="0xEB">235. 루브도</option>
+                                            <option value="0xEC">236. 베루키</option>
+                                            <option value="0xED">237. 카포에라</option>
+                                            <option value="0xEE">238. 뽀뽀라</option>
+                                            <option value="0xEF">239. 에레키드</option>
+                                            <option value="0xF0">240. 마그비</option>
+                                            <option value="0xF1">241. 밀탱크</option>
+                                            <option value="0xF2">242. 해피너스</option>
+                                            <option value="0xF3">243. 라이코</option>
+                                            <option value="0xF4">244. 엔테이</option>
+                                            <option value="0xF5">245. 스이쿤</option>
+                                            <option value="0xF6">246. 에버라스</option>
+                                            <option value="0xF7">247. 데기라스</option>
+                                            <option value="0xF8">248. 마기라스</option>
+                                            <option value="0xF9">249. 루기아</option>
+                                            <option value="0xFA">250. 칠색조</option>
+                                            <option value="0xFB">251. 세레비</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>레벨</label>
+                                        <input type="number" id="edit-level" min="1" max="100" value="50">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>경험치</label>
+                                        <input type="number" id="edit-exp" min="0" max="1640000" value="0">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>지닌 도구</label>
+                                    <select id="edit-item">
+                                        <option value="0x00">0. 없음</option>
+                                        <!-- Items loaded dynamically -->
+                                    </select>
+                                </div>
                             </div>
 
-                            <div class="form-group">
-                                <label>레벨</label>
-                                <input type="number" id="edit-level" class="pokemon-level" min="1" max="100" value="50">
+                            <!-- Moves Section -->
+                            <div class="form-section">
+                                <h4 class="section-title">기술</h4>
+
+                                <div class="move-group">
+                                    <div class="form-row">
+                                        <div class="form-group form-group-flex">
+                                            <label>기술 1</label>
+                                            <select id="edit-move-1" class="move-select">
+                                                <option value="0x00">0. 없음</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group form-group-small">
+                                            <label>PP</label>
+                                            <input type="number" id="edit-pp-1" min="0" max="99" value="0">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group form-group-flex">
+                                            <label>기술 2</label>
+                                            <select id="edit-move-2" class="move-select">
+                                                <option value="0x00">0. 없음</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group form-group-small">
+                                            <label>PP</label>
+                                            <input type="number" id="edit-pp-2" min="0" max="99" value="0">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group form-group-flex">
+                                            <label>기술 3</label>
+                                            <select id="edit-move-3" class="move-select">
+                                                <option value="0x00">0. 없음</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group form-group-small">
+                                            <label>PP</label>
+                                            <input type="number" id="edit-pp-3" min="0" max="99" value="0">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group form-group-flex">
+                                            <label>기술 4</label>
+                                            <select id="edit-move-4" class="move-select">
+                                                <option value="0x00">0. 없음</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group form-group-small">
+                                            <label>PP</label>
+                                            <input type="number" id="edit-pp-4" min="0" max="99" value="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- HP & Friendship Section -->
+                            <div class="form-section">
+                                <h4 class="section-title">HP & 친밀도</h4>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>현재 HP</label>
+                                        <input type="number" id="edit-current-hp" min="0" max="999" value="100">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>최대 HP</label>
+                                        <input type="number" id="edit-max-hp" min="1" max="999" value="100">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>친밀도</label>
+                                    <input type="number" id="edit-friendship" min="0" max="255" value="255">
+                                </div>
+                            </div>
+
+                            <!-- IV Section -->
+                            <div class="form-section">
+                                <h4 class="section-title">개체값 (IV 0-15)</h4>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>공격</label>
+                                        <input type="number" id="edit-iv-attack" min="0" max="15" value="15">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>방어</label>
+                                        <input type="number" id="edit-iv-defense" min="0" max="15" value="15">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>스피드</label>
+                                        <input type="number" id="edit-iv-speed" min="0" max="15" value="15">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>특수</label>
+                                        <input type="number" id="edit-iv-special" min="0" max="15" value="15">
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -107,11 +481,12 @@
                         <tr>
                             <th>주소</th>
                             <th>값 (HEX)</th>
+                            <th>설명</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="empty-state">
-                            <td colspan="2">생성 버튼을 눌러 메모리 값을 생성하세요.</td>
+                            <td colspan="3">생성 버튼을 눌러 메모리 값을 생성하세요.</td>
                         </tr>
                     </tbody>
                 </table>
