@@ -12,7 +12,7 @@ function renderOutputTable(entries) {
 
     // Check if empty
     if (entries.length === 0) {
-        tbody.innerHTML = '<tr class="empty-state"><td colspan="3">생성할 메모리 값이 없습니다. 슬롯을 활성화하고 값을 입력해주세요.</td></tr>';
+        tbody.innerHTML = '<tr class="empty-state"><td colspan="2">생성할 메모리 값이 없습니다. 슬롯을 활성화하고 값을 입력해주세요.</td></tr>';
         return;
     }
 
@@ -30,10 +30,6 @@ function renderOutputTable(entries) {
         const valueCell = document.createElement('td');
         valueCell.textContent = entry.value;
         row.appendChild(valueCell);
-
-        const descCell = document.createElement('td');
-        descCell.textContent = entry.description;
-        row.appendChild(descCell);
 
         tbody.appendChild(row);
     });
