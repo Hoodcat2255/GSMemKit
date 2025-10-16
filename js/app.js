@@ -1,9 +1,26 @@
 // ===== GSMemKit - Main Application Logic =====
 
+// Global state
+let partySlots = [
+    { species: '', level: 50 }
+];
+let selectedSlot = 0;
+
+// Pokemon name mapping
+const POKEMON_NAMES = {
+    '0x19': '피카츄',
+    '0x96': '이브이',
+    '0x03': '이상해씨',
+    '0x09': '꼬부기',
+    '0x06': '파이리',
+    '0x99': '뮤',
+    '0x95': '뮤츠'
+};
+
 // Tab Switching
 document.addEventListener('DOMContentLoaded', function() {
     initTabSwitching();
-    initPartySlots();
+    initPartyUI();
     initActionButtons();
 });
 
@@ -30,21 +47,146 @@ function initTabSwitching() {
 }
 
 /**
- * Initialize party slot enable/disable functionality
+ * Initialize party Pokemon UI
  */
-function initPartySlots() {
-    const partySlots = document.querySelectorAll('.party-slot');
+function initPartyUI() {
+    // Render initial state
+    renderSlotList();
+    renderEditArea();
+    updatePartyCount();
 
-    partySlots.forEach(slot => {
-        const checkbox = slot.querySelector('.slot-enabled');
-        const inputs = slot.querySelectorAll('select, input[type="number"]');
+    // Add/Remove slot buttons
+    document.getElementById('add-slot-btn').addEventListener('click', addSlot);
+    document.getElementById('remove-slot-btn').addEventListener('click', removeSlot);
 
-        checkbox.addEventListener('change', () => {
-            inputs.forEach(input => {
-                input.disabled = !checkbox.checked;
-            });
-        });
+    // Edit form listeners
+    document.getElementById('edit-species').addEventListener('change', onFormChange);
+    document.getElementById('edit-level').addEventListener('input', onFormChange);
+}
+
+/**
+ * Render party slot list
+ */
+function renderSlotList() {
+    const slotList = document.getElementById('party-slot-list');
+    slotList.innerHTML = '';
+
+    partySlots.forEach((slot, index) => {
+        const button = document.createElement('button');
+        button.className = 'party-slot-btn';
+        button.dataset.slotIndex = index;
+
+        if (index === selectedSlot) {
+            button.classList.add('active');
+        }
+
+        if (!slot.species) {
+            button.classList.add('empty');
+        }
+
+        // Slot number
+        const slotNumber = document.createElement('span');
+        slotNumber.className = 'slot-number';
+        slotNumber.textContent = index + 1;
+        button.appendChild(slotNumber);
+
+        // Slot content
+        if (slot.species) {
+            const slotName = document.createElement('div');
+            slotName.className = 'slot-name';
+            slotName.textContent = POKEMON_NAMES[slot.species] || '???';
+            button.appendChild(slotName);
+
+            const slotLevel = document.createElement('div');
+            slotLevel.className = 'slot-level';
+            slotLevel.textContent = `Lv.${slot.level}`;
+            button.appendChild(slotLevel);
+        } else {
+            const emptyText = document.createElement('div');
+            emptyText.textContent = '빈 슬롯';
+            button.appendChild(emptyText);
+        }
+
+        button.addEventListener('click', () => selectSlot(index));
+        slotList.appendChild(button);
     });
+
+    // Update control buttons
+    document.getElementById('add-slot-btn').disabled = partySlots.length >= 6;
+    document.getElementById('remove-slot-btn').disabled = partySlots.length <= 1;
+}
+
+/**
+ * Render edit area for selected slot
+ */
+function renderEditArea() {
+    const slot = partySlots[selectedSlot];
+
+    document.getElementById('edit-title').textContent = `슬롯 ${selectedSlot + 1} 편집`;
+    document.getElementById('edit-species').value = slot.species;
+    document.getElementById('edit-level').value = slot.level;
+}
+
+/**
+ * Update party count display
+ */
+function updatePartyCount() {
+    const count = partySlots.filter(slot => slot.species).length;
+    document.getElementById('party-count').textContent = `(${count}/${partySlots.length})`;
+}
+
+/**
+ * Add new slot
+ */
+function addSlot() {
+    if (partySlots.length >= 6) {
+        return;
+    }
+
+    partySlots.push({ species: '', level: 50 });
+    renderSlotList();
+    updatePartyCount();
+}
+
+/**
+ * Remove last slot
+ */
+function removeSlot() {
+    if (partySlots.length <= 1) {
+        return;
+    }
+
+    partySlots.pop();
+
+    // Adjust selected slot if needed
+    if (selectedSlot >= partySlots.length) {
+        selectedSlot = partySlots.length - 1;
+        renderEditArea();
+    }
+
+    renderSlotList();
+    updatePartyCount();
+}
+
+/**
+ * Select a slot
+ */
+function selectSlot(index) {
+    selectedSlot = index;
+    renderSlotList();
+    renderEditArea();
+}
+
+/**
+ * Handle form changes
+ */
+function onFormChange() {
+    const slot = partySlots[selectedSlot];
+    slot.species = document.getElementById('edit-species').value;
+    slot.level = parseInt(document.getElementById('edit-level').value) || 50;
+
+    renderSlotList();
+    updatePartyCount();
 }
 
 /**
@@ -92,24 +234,17 @@ function resetForm() {
         return;
     }
 
-    // Reset all checkboxes except first party slot
-    document.querySelectorAll('.slot-enabled').forEach((checkbox, index) => {
-        checkbox.checked = index === 0;
-        checkbox.dispatchEvent(new Event('change'));
-    });
-
-    // Reset all selects
-    document.querySelectorAll('select').forEach(select => {
-        select.selectedIndex = 0;
-    });
-
-    // Reset all number inputs
-    document.querySelectorAll('input[type="number"]').forEach(input => {
-        input.value = 50;
-    });
+    // Reset party slots
+    partySlots = [{ species: '', level: 50 }];
+    selectedSlot = 0;
 
     // Reset trainer capture
     document.getElementById('trainer-capture-toggle').checked = false;
+
+    // Re-render
+    renderSlotList();
+    renderEditArea();
+    updatePartyCount();
 
     // Clear output table
     const tbody = document.querySelector('#output-table tbody');

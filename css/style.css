@@ -113,44 +113,201 @@ body {
     color: #333;
 }
 
-/* ===== Party Slots ===== */
-.party-slots {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.party-slot {
-    background: #f9f9f9;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 15px;
-    transition: all 0.3s ease;
-}
-
-.party-slot:has(.slot-enabled:checked) {
-    background: #fff;
-    border-color: #667eea;
-    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
-}
-
-.slot-header {
+/* ===== Party Pokemon UI ===== */
+.party-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
 }
 
-.slot-number {
-    font-weight: 600;
-    font-size: 14px;
-    color: #667eea;
+.party-title-group h2 {
+    margin: 0;
+    font-size: 18px;
 }
 
-.slot-enabled {
-    width: 20px;
-    height: 20px;
+.party-count {
+    font-size: 14px;
+    font-weight: 500;
+    color: #999;
+}
+
+.party-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ===== Slot List Area ===== */
+.party-slot-list-wrapper {
+    margin-bottom: 10px;
+}
+
+.party-slot-list {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.party-slot-list::-webkit-scrollbar {
+    height: 6px;
+}
+
+.party-slot-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.party-slot-list::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 3px;
+}
+
+.party-slot-list::-webkit-scrollbar-thumb:hover {
+    background: #5568d3;
+}
+
+.party-slot-btn {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    scroll-snap-align: start;
+}
+
+.party-slot-btn:hover {
+    border-color: #667eea;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.party-slot-btn.active {
+    border-color: #667eea;
+    border-width: 3px;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+.party-slot-btn.empty {
+    border-style: dashed;
+    color: #999;
+}
+
+.party-slot-btn .slot-number {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 10px;
+    color: #999;
+}
+
+.party-slot-btn .slot-name {
+    font-size: 11px;
+    text-align: center;
+    padding: 0 5px;
+    word-break: keep-all;
+}
+
+.party-slot-btn .slot-level {
+    font-size: 10px;
+    color: #999;
+    margin-top: 2px;
+}
+
+/* ===== Slot Controls ===== */
+.slot-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.slot-control-btn {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #667eea;
+    border-radius: 50%;
+    background: #fff;
+    color: #667eea;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slot-control-btn:hover {
+    background: #667eea;
+    color: white;
+    transform: scale(1.1);
+}
+
+.slot-control-btn:active {
+    transform: scale(0.95);
+}
+
+.slot-control-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.slot-control-btn:disabled:hover {
+    background: #fff;
+    color: #667eea;
+    transform: none;
+}
+
+/* ===== Edit Area ===== */
+.party-edit-area {
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.edit-header {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #667eea;
+}
+
+.edit-header h3 {
+    font-size: 16px;
+    color: #667eea;
+    margin: 0;
+}
+
+.edit-form {
+    /* Inherits form-group styles */
 }
 
 /* ===== Form Elements ===== */

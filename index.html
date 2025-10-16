@@ -25,60 +25,51 @@
         <main class="tab-content">
             <!-- Party Pokemon Tab -->
             <section id="party-tab" class="tab-pane active">
-                <h2>파티 포켓몬 에디팅</h2>
+                <div class="party-header">
+                    <div class="party-title-group">
+                        <h2>파티 포켓몬 <span class="party-count" id="party-count">(1/6)</span></h2>
+                    </div>
+                    <div class="slot-controls">
+                        <button class="slot-control-btn" id="add-slot-btn" title="슬롯 추가">+</button>
+                        <button class="slot-control-btn" id="remove-slot-btn" title="슬롯 제거">−</button>
+                    </div>
+                </div>
 
-                <div class="party-slots">
-                    <!-- Party Slot 1 -->
-                    <div class="party-slot">
-                        <div class="slot-header">
-                            <label class="slot-number">슬롯 1</label>
-                            <input type="checkbox" class="slot-enabled" checked>
-                        </div>
-
-                        <div class="form-group">
-                            <label>포켓몬 종족</label>
-                            <select class="pokemon-species">
-                                <option value="">선택하세요</option>
-                                <option value="0x19">피카츄 (0x19)</option>
-                                <option value="0x96">이브이 (0x96)</option>
-                                <option value="0x03">이상해씨 (0x03)</option>
-                                <option value="0x09">꼬부기 (0x09)</option>
-                                <option value="0x06">파이리 (0x06)</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>레벨</label>
-                            <input type="number" class="pokemon-level" min="1" max="100" value="50">
+                <div class="party-container">
+                    <!-- Slot List Area -->
+                    <div class="party-slot-list-wrapper">
+                        <div class="party-slot-list" id="party-slot-list">
+                            <!-- Slots will be dynamically rendered -->
                         </div>
                     </div>
 
-                    <!-- Party Slot 2 -->
-                    <div class="party-slot">
-                        <div class="slot-header">
-                            <label class="slot-number">슬롯 2</label>
-                            <input type="checkbox" class="slot-enabled">
+                    <!-- Edit Area -->
+                    <div class="party-edit-area" id="party-edit-area">
+                        <div class="edit-header">
+                            <h3 id="edit-title">슬롯 1 편집</h3>
                         </div>
 
-                        <div class="form-group">
-                            <label>포켓몬 종족</label>
-                            <select class="pokemon-species" disabled>
-                                <option value="">선택하세요</option>
-                                <option value="0x19">피카츄 (0x19)</option>
-                                <option value="0x96">이브이 (0x96)</option>
-                                <option value="0x03">이상해씨 (0x03)</option>
-                                <option value="0x09">꼬부기 (0x09)</option>
-                                <option value="0x06">파이리 (0x06)</option>
-                            </select>
-                        </div>
+                        <form class="edit-form">
+                            <div class="form-group">
+                                <label>포켓몬 종족</label>
+                                <select id="edit-species" class="pokemon-species">
+                                    <option value="">선택하세요</option>
+                                    <option value="0x19">피카츄 (0x19)</option>
+                                    <option value="0x96">이브이 (0x96)</option>
+                                    <option value="0x03">이상해씨 (0x03)</option>
+                                    <option value="0x09">꼬부기 (0x09)</option>
+                                    <option value="0x06">파이리 (0x06)</option>
+                                    <option value="0x99">뮤 (0x99)</option>
+                                    <option value="0x95">뮤츠 (0x95)</option>
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <label>레벨</label>
-                            <input type="number" class="pokemon-level" min="1" max="100" value="50" disabled>
-                        </div>
+                            <div class="form-group">
+                                <label>레벨</label>
+                                <input type="number" id="edit-level" class="pokemon-level" min="1" max="100" value="50">
+                            </div>
+                        </form>
                     </div>
-
-                    <!-- More slots can be added similarly -->
                 </div>
             </section>
 

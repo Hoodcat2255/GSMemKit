@@ -1,31 +1,28 @@
 // ===== Pokemon Data Management =====
 
 /**
- * Collect party Pokemon data from form
+ * Collect party Pokemon data from global partySlots array
  * @returns {Array} Array of pokemon objects
  */
 function collectPartyData() {
-    const partySlots = document.querySelectorAll('.party-slot');
     const partyData = [];
 
     partySlots.forEach((slot, index) => {
-        const enabled = slot.querySelector('.slot-enabled').checked;
-
-        if (!enabled) {
+        // Only include slots with a species selected
+        if (!slot.species || slot.species === '') {
             return;
         }
 
-        const species = slot.querySelector('.pokemon-species').value;
-        const level = parseInt(slot.querySelector('.pokemon-level').value);
+        const level = parseInt(slot.level);
 
         // Validate data
-        if (!species || !level || level < 1 || level > 100) {
+        if (!level || level < 1 || level > 100) {
             return;
         }
 
         partyData.push({
             slotIndex: index,
-            species: species,
+            species: slot.species,
             level: level
         });
     });
@@ -48,7 +45,7 @@ function calculatePartyMemory(pokemon) {
     entries.push({
         address: baseAddress + slotOffset + 0x00,
         value: pokemon.species,
-        description: `파티 ${pokemon.slotIndex + 1}번 - 포켓몬 종족`
+        description: `파티 ${pokemon.slotIndex + 1}번 - 포켓몬 종족 (${POKEMON_NAMES[pokemon.species] || '???'})`
     });
 
     // Pokemon Level (Offset +0x1F)
