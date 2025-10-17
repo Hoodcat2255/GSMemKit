@@ -192,6 +192,14 @@ function populateMovesSelects() {
 }
 
 /**
+ * Clear output table
+ */
+function clearOutputTable() {
+    const tbody = document.querySelector('#output-table tbody');
+    tbody.innerHTML = '<tr class="empty-state"><td colspan="3">생성 버튼을 눌러 메모리 값을 생성하세요.</td></tr>';
+}
+
+/**
  * Initialize tab switching functionality
  */
 function initTabSwitching() {
@@ -209,6 +217,14 @@ function initTabSwitching() {
             // Add active class to clicked button and target pane
             button.classList.add('active');
             document.getElementById(`${targetTab}-tab`).classList.add('active');
+
+            // Clear output table when switching tabs
+            clearOutputTable();
+
+            // Auto-generate memory table for trainer tab
+            if (targetTab === 'trainer') {
+                generateMemoryOutput();
+            }
         });
     });
 }
@@ -456,45 +472,46 @@ function initActionButtons() {
  */
 function generateMemoryOutput() {
     const memoryEntries = [];
+    const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
 
-    // Collect party Pokemon data
-    const partyData = collectPartyData();
-
-    // Party meta information
-    if (partyData.length > 0) {
-        // Party count
-        memoryEntries.push({
-            address: MEMORY_MAP.PARTY_COUNT,
-            value: toHex(partyData.length),
-            description: `파티 포켓몬 수 (${partyData.length})`
-        });
-
-        // Party species list
-        partyData.forEach((pokemon, index) => {
-            memoryEntries.push({
-                address: MEMORY_MAP.PARTY_SPECIES_LIST_START + index,
-                value: pokemon.species,
-                description: `파티 종족 목록 ${index + 1}번`
-            });
-        });
-
-        // Species list terminator
-        memoryEntries.push({
-            address: MEMORY_MAP.PARTY_SPECIES_TERMINATOR,
-            value: '0xFF',
-            description: '종족 목록 종결자'
-        });
-    }
-
-    // Individual Pokemon data
-    partyData.forEach(pokemon => {
-        memoryEntries.push(...calculatePartyMemory(pokemon));
-    });
-
-    // Collect trainer capture toggle
-    const trainerCapture = document.getElementById('trainer-capture-toggle').checked;
-    if (trainerCapture) {
+    // Generate different memory based on active tab
+    if (activeTab === 'trainer') {
+        // Trainer tab: Only trainer capture memory
         memoryEntries.push(...calculateTrainerCaptureMemory());
+    } else {
+        // Party tab (or other tabs): Party Pokemon memory
+        const partyData = collectPartyData();
+
+        // Party meta information
+        if (partyData.length > 0) {
+            // Party count
+            memoryEntries.push({
+                address: MEMORY_MAP.PARTY_COUNT,
+                value: toHex(partyData.length),
+                description: `파티 포켓몬 수 (${partyData.length})`
+            });
+
+            // Party species list
+            partyData.forEach((pokemon, index) => {
+                memoryEntries.push({
+                    address: MEMORY_MAP.PARTY_SPECIES_LIST_START + index,
+                    value: pokemon.species,
+                    description: `파티 종족 목록 ${index + 1}번`
+                });
+            });
+
+            // Species list terminator
+            memoryEntries.push({
+                address: MEMORY_MAP.PARTY_SPECIES_TERMINATOR,
+                value: '0xFF',
+                description: '종족 목록 종결자'
+            });
+        }
+
+        // Individual Pokemon data
+        partyData.forEach(pokemon => {
+            memoryEntries.push(...calculatePartyMemory(pokemon));
+        });
     }
 
     // Render output table
@@ -513,15 +530,11 @@ function resetForm() {
     partySlots = [createEmptySlot()];
     selectedSlot = 0;
 
-    // Reset trainer capture
-    document.getElementById('trainer-capture-toggle').checked = false;
-
     // Re-render
     renderSlotList();
     renderEditArea();
     updatePartyCount();
 
     // Clear output table
-    const tbody = document.querySelector('#output-table tbody');
-    tbody.innerHTML = '<tr class="empty-state"><td colspan="3">생성 버튼을 눌러 메모리 값을 생성하세요.</td></tr>';
+    clearOutputTable();
 }

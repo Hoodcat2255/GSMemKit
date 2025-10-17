@@ -185,13 +185,35 @@ function calculatePartyMemory(pokemon) {
  * @returns {Array} Array of memory entries
  */
 function calculateTrainerCaptureMemory() {
-    // Note: This address needs to be verified for Korean version
-    // For now using placeholder
-    return [{
-        address: 0xD0E0,
+    const entries = [];
+
+    // 1. 전투 타입을 야생으로 변경 (고정값)
+    entries.push({
+        address: 0xD1D3,
         value: '0x01',
-        description: '트레이너 포켓몬 포획 활성화'
-    }];
+        description: '전투 타입을 야생으로 변경 (트레이너 → 야생)'
+    });
+
+    // 2. 상대 기술 확인용 (0xD206-0xD209)
+    for (let i = 0; i < 4; i++) {
+        entries.push({
+            address: 0xD206 + i,
+            value: '-',
+            description: `[확인 필요] 상대 기술 ${i + 1}`
+        });
+    }
+
+    // 3. 포획 시 기술 입력 안내 (0xCCD0-0xCCD3)
+    for (let i = 0; i < 4; i++) {
+        const refAddress = 0xD206 + i;
+        entries.push({
+            address: 0xCCD0 + i,
+            value: `(0x${refAddress.toString(16).toUpperCase()} 확인)`,
+            description: `포획 시 기술 ${i + 1} - 0x${refAddress.toString(16).toUpperCase()}에서 확인한 값을 입력`
+        });
+    }
+
+    return entries;
 }
 
 /**

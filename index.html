@@ -456,12 +456,24 @@
             <!-- Trainer Capture Tab -->
             <section id="trainer-tab" class="tab-pane">
                 <h2>트레이너 포켓몬 포획</h2>
-                <div class="form-group">
-                    <label class="toggle-label">
-                        <input type="checkbox" id="trainer-capture-toggle">
-                        <span>트레이너 포켓몬 포획 활성화</span>
-                    </label>
-                    <p class="warning">⚠️ 이 기능은 게임 진행에 영향을 줄 수 있습니다.</p>
+                <div class="trainer-guide">
+                    <div class="guide-section">
+                        <h3>📋 사용 방법</h3>
+                        <ol>
+                            <li>트레이너와 배틀 진입</li>
+                            <li>에뮬레이터에서 <strong>0xD206-0xD209</strong> 주소의 값 확인</li>
+                            <li>아래 "생성" 버튼 클릭하여 메모리 테이블 확인</li>
+                            <li>테이블의 안내에 따라 값 입력</li>
+                        </ol>
+                    </div>
+                    <div class="guide-section">
+                        <h3>⚡ 주요 변경사항</h3>
+                        <ul>
+                            <li><code>0xD1D3</code>: 전투 타입을 야생으로 변경 (0x01)</li>
+                            <li><code>0xCCD0-0xCCD3</code>: 포획 시 기술 설정</li>
+                        </ul>
+                    </div>
+                    <p class="warning">⚠️ 이 기능은 게임 진행에 영향을 줄 수 있습니다. 사전에 세이브 파일을 백업하세요.</p>
                 </div>
             </section>
         </main>
