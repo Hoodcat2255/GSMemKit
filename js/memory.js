@@ -54,6 +54,12 @@ function formatAddress(address) {
  * Pokemon Gold/Silver Korean Version
  * Verified addresses for Korean ROM
  *
+ * Version Differences:
+ * - Party Pokemon: Korean = International + 0xFD (253 bytes)
+ *   - International: 0xDA22 → Korean: 0xDB1F
+ * - Opponent Pokemon: Korean = International + 0xBD (189 bytes)
+ *   - International: 0xD116 → Korean: 0xD1D3
+ *
  * Party Pokemon:
  * - Party count: 0xDB1F (1 byte)
  * - Party species list: 0xDB20-0xDB25 (6 bytes, 1-6 slots)
