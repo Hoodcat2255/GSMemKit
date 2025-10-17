@@ -605,6 +605,13 @@ body {
     margin-bottom: 0;
 }
 
+/* ===== Misc Tab ===== */
+.misc-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 /* ===== Items Tab ===== */
 .items-sub-tabs {
     display: flex;

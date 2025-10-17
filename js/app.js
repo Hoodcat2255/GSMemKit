@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     initTabSwitching();
     initPartyUI();
     initItemsUI();
+    initMiscUI();
     initActionButtons();
 });
 
@@ -610,6 +611,34 @@ function renderItemsList() {
 }
 
 /**
+ * Initialize misc tab UI
+ */
+function initMiscUI() {
+    // Date/Time listeners
+    const daySelect = document.getElementById('misc-day-of-week');
+    const hourInput = document.getElementById('misc-hour');
+    const minuteInput = document.getElementById('misc-minute');
+
+    if (daySelect) {
+        daySelect.addEventListener('change', (e) => {
+            updateDateTime('dayOfWeek', e.target.value);
+        });
+    }
+
+    if (hourInput) {
+        hourInput.addEventListener('input', (e) => {
+            updateDateTime('hour', e.target.value);
+        });
+    }
+
+    if (minuteInput) {
+        minuteInput.addEventListener('input', (e) => {
+            updateDateTime('minute', e.target.value);
+        });
+    }
+}
+
+/**
  * Initialize action buttons (Generate, Reset)
  */
 function initActionButtons() {
@@ -642,6 +671,9 @@ function generateMemoryOutput() {
         } else if (activeSubTab === 'key-items') {
             memoryEntries.push(...calculateKeyItemsMemory());
         }
+    } else if (activeTab === 'misc') {
+        // Misc tab: Date/time and other miscellaneous memory
+        memoryEntries.push(...calculateDateTimeMemory());
     } else {
         // Party tab: Party Pokemon memory
         const partyData = collectPartyData();
