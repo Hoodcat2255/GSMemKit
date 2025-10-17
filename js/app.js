@@ -10,6 +10,13 @@ let selectedSlot = 0;
 let itemsData = [];
 let movesData = [];
 
+// Choices.js instances
+let choicesInstances = {
+    species: null,
+    item: null,
+    moves: []
+};
+
 /**
  * Create an empty slot with default values
  */
@@ -194,6 +201,50 @@ function populateMovesSelects() {
 }
 
 /**
+ * Initialize Choices.js for party selects
+ */
+function initPartyChoices() {
+    // Species select
+    if (choicesInstances.species) {
+        choicesInstances.species.destroy();
+    }
+    choicesInstances.species = new Choices('#edit-species', {
+        searchEnabled: true,
+        searchPlaceholderValue: '포켓몬 검색...',
+        noResultsText: '결과 없음',
+        itemSelectText: '선택',
+        position: 'bottom'
+    });
+
+    // Item select
+    if (choicesInstances.item) {
+        choicesInstances.item.destroy();
+    }
+    choicesInstances.item = new Choices('#edit-item', {
+        searchEnabled: true,
+        searchPlaceholderValue: '도구 검색...',
+        noResultsText: '결과 없음',
+        itemSelectText: '선택',
+        position: 'bottom'
+    });
+
+    // Move selects
+    choicesInstances.moves.forEach(choice => choice && choice.destroy());
+    choicesInstances.moves = [];
+
+    for (let i = 1; i <= 4; i++) {
+        const moveChoice = new Choices(`#edit-move-${i}`, {
+            searchEnabled: true,
+            searchPlaceholderValue: '기술 검색...',
+            noResultsText: '결과 없음',
+            itemSelectText: '선택',
+            position: 'bottom'
+        });
+        choicesInstances.moves.push(moveChoice);
+    }
+}
+
+/**
  * Clear output table
  */
 function clearOutputTable() {
@@ -238,6 +289,9 @@ function initPartyUI() {
     // Populate select elements with data
     populateItemsSelect();
     populateMovesSelects();
+
+    // Initialize Choices.js for selects
+    initPartyChoices();
 
     // Render initial state
     renderSlotList();
@@ -340,16 +394,29 @@ function renderEditArea() {
     document.getElementById('edit-title').textContent = `슬롯 ${selectedSlot + 1} 편집`;
 
     // Basic Info
-    document.getElementById('edit-species').value = slot.species;
+    if (choicesInstances.species) {
+        choicesInstances.species.setChoiceByValue(slot.species);
+    } else {
+        document.getElementById('edit-species').value = slot.species;
+    }
+
     document.getElementById('edit-level').value = slot.level;
     document.getElementById('edit-exp').value = slot.exp;
-    document.getElementById('edit-item').value = slot.item || '0x00';
+
+    if (choicesInstances.item) {
+        choicesInstances.item.setChoiceByValue(slot.item || '0x00');
+    } else {
+        document.getElementById('edit-item').value = slot.item || '0x00';
+    }
 
     // Moves
-    document.getElementById('edit-move-1').value = slot.moves[0] || '0x00';
-    document.getElementById('edit-move-2').value = slot.moves[1] || '0x00';
-    document.getElementById('edit-move-3').value = slot.moves[2] || '0x00';
-    document.getElementById('edit-move-4').value = slot.moves[3] || '0x00';
+    for (let i = 0; i < 4; i++) {
+        if (choicesInstances.moves[i]) {
+            choicesInstances.moves[i].setChoiceByValue(slot.moves[i] || '0x00');
+        } else {
+            document.getElementById(`edit-move-${i + 1}`).value = slot.moves[i] || '0x00';
+        }
+    }
 
     // PP
     document.getElementById('edit-pp-1').value = slot.pp[0];
@@ -566,6 +633,15 @@ function renderItemsList() {
 
         selectDiv.appendChild(select);
         slotDiv.appendChild(selectDiv);
+
+        // Initialize Choices.js for this select
+        const itemChoice = new Choices(select, {
+            searchEnabled: true,
+            searchPlaceholderValue: '아이템 검색...',
+            noResultsText: '결과 없음',
+            itemSelectText: '선택',
+            position: 'bottom'
+        });
 
         // Amount input (only for items and balls)
         if (hasAmount) {
