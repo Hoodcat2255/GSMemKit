@@ -605,6 +605,158 @@ body {
     margin-bottom: 0;
 }
 
+/* ===== Items Tab ===== */
+.items-sub-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.sub-tab-btn {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    color: #666;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sub-tab-btn:hover {
+    border-color: #667eea;
+    background: #f5f5ff;
+}
+
+.sub-tab-btn.active {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+.items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 100px;
+}
+
+.item-slot {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 12px;
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.item-slot:hover {
+    background: #fff;
+    border-color: #667eea;
+}
+
+.item-select-wrapper {
+    flex: 1;
+    min-width: 0;
+}
+
+.item-select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 13px;
+    background: white;
+    transition: border-color 0.3s ease;
+}
+
+.item-select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.item-amount-wrapper {
+    width: 70px;
+}
+
+.item-amount {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 13px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+
+.item-amount:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.btn-remove-item {
+    padding: 8px 16px;
+    border: 1px solid #dc3545;
+    border-radius: 5px;
+    background: white;
+    color: #dc3545;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-remove-item:hover {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-remove-item:active {
+    transform: scale(0.95);
+}
+
+.btn-add-item {
+    width: 100%;
+    padding: 12px 20px;
+    border: 2px dashed #667eea;
+    border-radius: 6px;
+    background: white;
+    color: #667eea;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-add-item:hover {
+    background: #f5f5ff;
+    border-style: solid;
+}
+
+.btn-add-item:active {
+    transform: scale(0.98);
+}
+
+.items-list .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #999;
+    font-size: 14px;
+    font-style: italic;
+}
+
 /* ===== Responsive Tweaks ===== */
 @media (min-width: 768px) {
     .title {

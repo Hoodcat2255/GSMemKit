@@ -124,6 +124,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     await loadData();
     initTabSwitching();
     initPartyUI();
+    initItemsUI();
     initActionButtons();
 });
 
@@ -457,6 +458,158 @@ function onFormChange() {
 }
 
 /**
+ * Initialize items tab UI
+ */
+function initItemsUI() {
+    // Initialize sub-tabs
+    initItemsSubTabs();
+
+    // Add item button
+    const addItemBtn = document.getElementById('add-item-btn');
+    if (addItemBtn) {
+        addItemBtn.addEventListener('click', () => {
+            const activeSubTab = document.querySelector('.sub-tab-btn.active').dataset.subtab;
+            addItemSlot(activeSubTab);
+            renderItemsList();
+        });
+    }
+
+    // Initial render
+    renderItemsList();
+}
+
+/**
+ * Initialize items sub-tabs
+ */
+function initItemsSubTabs() {
+    const subTabButtons = document.querySelectorAll('.sub-tab-btn');
+
+    subTabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all sub-tab buttons
+            subTabButtons.forEach(btn => btn.classList.remove('active'));
+
+            // Add active class to clicked button
+            button.classList.add('active');
+
+            // Update add button text
+            const category = button.dataset.subtab;
+            const addItemBtn = document.getElementById('add-item-btn');
+            if (addItemBtn) {
+                const categoryNames = {
+                    'items': '도구',
+                    'balls': '볼',
+                    'key-items': '중요한 도구'
+                };
+                addItemBtn.textContent = `+ ${categoryNames[category]} 추가`;
+            }
+
+            // Re-render items list
+            renderItemsList();
+        });
+    });
+}
+
+/**
+ * Render items list based on active sub-tab
+ */
+function renderItemsList() {
+    const activeSubTab = document.querySelector('.sub-tab-btn.active')?.dataset.subtab || 'items';
+    const itemsList = document.getElementById('items-list');
+
+    if (!itemsList) return;
+
+    // Get current category data
+    let slots = [];
+    let hasAmount = true;
+    if (activeSubTab === 'items') {
+        slots = itemSlots;
+    } else if (activeSubTab === 'balls') {
+        slots = ballSlots;
+    } else if (activeSubTab === 'key-items') {
+        slots = keyItemSlots;
+        hasAmount = false;
+    }
+
+    // Clear list
+    itemsList.innerHTML = '';
+
+    // Render each slot
+    slots.forEach((slot, index) => {
+        const slotDiv = document.createElement('div');
+        slotDiv.className = 'item-slot';
+
+        // Item select
+        const selectDiv = document.createElement('div');
+        selectDiv.className = 'item-select-wrapper';
+
+        const select = document.createElement('select');
+        select.className = 'item-select';
+        select.innerHTML = '<option value="">아이템 선택</option>';
+
+        // Populate select with items
+        itemsData.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item.id;
+            const decimalId = parseInt(item.id, 16);
+            option.textContent = `${decimalId}. ${item.name}`;
+            if (slot.id === item.id) {
+                option.selected = true;
+            }
+            select.appendChild(option);
+        });
+
+        select.addEventListener('change', (e) => {
+            updateItemSlot(activeSubTab, index, 'id', e.target.value);
+        });
+
+        selectDiv.appendChild(select);
+        slotDiv.appendChild(selectDiv);
+
+        // Amount input (only for items and balls)
+        if (hasAmount) {
+            const amountDiv = document.createElement('div');
+            amountDiv.className = 'item-amount-wrapper';
+
+            const amountInput = document.createElement('input');
+            amountInput.type = 'number';
+            amountInput.className = 'item-amount';
+            amountInput.min = '1';
+            amountInput.max = '99';
+            amountInput.value = slot.amount || 1;
+            amountInput.addEventListener('input', (e) => {
+                const value = Math.min(99, Math.max(1, parseInt(e.target.value) || 1));
+                e.target.value = value;
+                updateItemSlot(activeSubTab, index, 'amount', value);
+            });
+
+            amountDiv.appendChild(amountInput);
+            slotDiv.appendChild(amountDiv);
+        }
+
+        // Remove button
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'btn-remove-item';
+        removeBtn.textContent = '삭제';
+        removeBtn.addEventListener('click', () => {
+            removeItemSlot(activeSubTab, index);
+            renderItemsList();
+        });
+
+        slotDiv.appendChild(removeBtn);
+        itemsList.appendChild(slotDiv);
+    });
+
+    // Empty state
+    if (slots.length === 0) {
+        const emptyDiv = document.createElement('div');
+        emptyDiv.className = 'empty-state';
+        emptyDiv.textContent = '아이템을 추가해주세요.';
+        itemsList.appendChild(emptyDiv);
+    }
+}
+
+/**
  * Initialize action buttons (Generate, Reset)
  */
 function initActionButtons() {
@@ -478,8 +631,19 @@ function generateMemoryOutput() {
     if (activeTab === 'trainer') {
         // Trainer tab: Only trainer capture memory
         memoryEntries.push(...calculateTrainerCaptureMemory());
+    } else if (activeTab === 'items') {
+        // Items tab: Only active sub-tab category
+        const activeSubTab = document.querySelector('.sub-tab-btn.active')?.dataset.subtab || 'items';
+
+        if (activeSubTab === 'items') {
+            memoryEntries.push(...calculateItemsMemory());
+        } else if (activeSubTab === 'balls') {
+            memoryEntries.push(...calculateBallsMemory());
+        } else if (activeSubTab === 'key-items') {
+            memoryEntries.push(...calculateKeyItemsMemory());
+        }
     } else {
-        // Party tab (or other tabs): Party Pokemon memory
+        // Party tab: Party Pokemon memory
         const partyData = collectPartyData();
 
         // Party meta information

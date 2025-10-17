@@ -450,7 +450,22 @@
             <!-- Items Tab -->
             <section id="items-tab" class="tab-pane">
                 <h2>도구 에디팅</h2>
-                <p class="coming-soon">개발 중...</p>
+
+                <!-- Sub-tabs -->
+                <div class="items-sub-tabs">
+                    <button class="sub-tab-btn active" data-subtab="items">도구</button>
+                    <button class="sub-tab-btn" data-subtab="balls">볼</button>
+                    <button class="sub-tab-btn" data-subtab="key-items">중요한 도구</button>
+                </div>
+
+                <!-- Items List Container -->
+                <div class="items-container">
+                    <div class="items-list" id="items-list">
+                        <!-- Dynamically rendered -->
+                    </div>
+
+                    <button class="btn btn-secondary btn-add-item" id="add-item-btn">+ 도구 추가</button>
+                </div>
             </section>
 
             <!-- Trainer Capture Tab -->
@@ -513,6 +528,7 @@
 
     <script src="js/app.js"></script>
     <script src="js/pokemon.js"></script>
+    <script src="js/items.js"></script>
     <script src="js/memory.js"></script>
 </body>
 </html>
