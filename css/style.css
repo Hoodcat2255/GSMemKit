@@ -785,6 +785,13 @@ body {
 
 /* ===== Mobile Responsive (Small Screens) ===== */
 @media (max-width: 480px) {
+    /* Tab buttons: Prevent text wrapping on mobile */
+    .tab-btn {
+        font-size: 12px;
+        padding: 15px 5px;
+        white-space: nowrap;
+    }
+
     /* Trainer tab: Stack inputs vertically on mobile */
     .trainer-guide .form-row {
         grid-template-columns: 1fr;
