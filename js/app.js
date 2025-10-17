@@ -17,6 +17,9 @@ let choicesInstances = {
     moves: []
 };
 
+// Trainer capture state
+let trainerMoves = ['', '', '', ''];
+
 /**
  * Create an empty slot with default values
  */
@@ -132,6 +135,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     initTabSwitching();
     initPartyUI();
     initItemsUI();
+    initTrainerUI();
     initMiscUI();
     initActionButtons();
 });
@@ -684,6 +688,42 @@ function renderItemsList() {
         emptyDiv.textContent = '아이템을 추가해주세요.';
         itemsList.appendChild(emptyDiv);
     }
+}
+
+/**
+ * Initialize trainer capture tab UI
+ */
+function initTrainerUI() {
+    // Get input elements
+    const moveInputs = [
+        document.getElementById('trainer-move-1'),
+        document.getElementById('trainer-move-2'),
+        document.getElementById('trainer-move-3'),
+        document.getElementById('trainer-move-4')
+    ];
+
+    // Add event listeners for each move input
+    moveInputs.forEach((input, index) => {
+        if (input) {
+            input.addEventListener('input', (e) => {
+                let value = e.target.value.trim().toUpperCase();
+
+                // Auto-add 0x prefix if not present and value is not empty
+                if (value && !value.startsWith('0X')) {
+                    value = '0X' + value.replace(/^0X/i, '');
+                }
+
+                // Validate hex format (0xNN)
+                if (value === '' || /^0X[0-9A-F]{0,2}$/i.test(value)) {
+                    trainerMoves[index] = value;
+                    e.target.value = value;
+                } else {
+                    // Invalid format, revert to previous value
+                    e.target.value = trainerMoves[index] || '';
+                }
+            });
+        }
+    });
 }
 
 /**

@@ -194,22 +194,24 @@ function calculateTrainerCaptureMemory() {
         description: '전투 타입을 야생으로 변경 (트레이너 → 야생)'
     });
 
-    // 2. 상대 기술 확인용 (0xD206-0xD209)
+    // 2. 상대 기술 확인용 (0xD0C8-0xD0CB)
     for (let i = 0; i < 4; i++) {
         entries.push({
-            address: 0xD206 + i,
+            address: 0xD0C8 + i,
             value: '-',
             description: `[확인 필요] 상대 기술 ${i + 1}`
         });
     }
 
-    // 3. 포획 시 기술 입력 안내 (0xCCD0-0xCCD3)
+    // 3. 포획 시 기술 (0xCC1B-0xCC1E)
+    // trainerMoves가 정의되어 있으면 사용, 없으면 안내 메시지
     for (let i = 0; i < 4; i++) {
-        const refAddress = 0xD206 + i;
+        const refAddress = 0xD0C8 + i;
+        const hasValue = typeof trainerMoves !== 'undefined' && trainerMoves[i];
         entries.push({
-            address: 0xCCD0 + i,
-            value: `(0x${refAddress.toString(16).toUpperCase()} 확인)`,
-            description: `포획 시 기술 ${i + 1} - 0x${refAddress.toString(16).toUpperCase()}에서 확인한 값을 입력`
+            address: 0xCC1B + i,
+            value: hasValue ? trainerMoves[i] : `(0x${refAddress.toString(16).toUpperCase()} 확인)`,
+            description: `포획 시 기술 ${i + 1}${hasValue ? '' : ' - 위에서 확인한 값을 입력하세요'}`
         });
     }
 
