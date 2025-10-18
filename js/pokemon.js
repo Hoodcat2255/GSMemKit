@@ -44,7 +44,12 @@ function collectPartyData() {
             ivAttack: parseInt(slot.ivAttack) || 0,
             ivDefense: parseInt(slot.ivDefense) || 0,
             ivSpeed: parseInt(slot.ivSpeed) || 0,
-            ivSpecial: parseInt(slot.ivSpecial) || 0
+            ivSpecial: parseInt(slot.ivSpecial) || 0,
+            evHp: parseInt(slot.evHp) || 0,
+            evAttack: parseInt(slot.evAttack) || 0,
+            evDefense: parseInt(slot.evDefense) || 0,
+            evSpeed: parseInt(slot.evSpeed) || 0,
+            evSpecial: parseInt(slot.evSpecial) || 0
         });
     });
 
@@ -109,6 +114,67 @@ function calculatePartyMemory(pokemon) {
         address: baseAddress + slotOffset + MEMORY_MAP.OFFSET_EXPERIENCE + 2,
         value: toHex(expByte3),
         description: `파티 ${partyNum}번 - 경험치 (하위 바이트)`
+    });
+
+    // EVs (Offset +0x0B-0x14, 2 bytes each, big-endian)
+    // HP EV
+    entries.push({
+        address: baseAddress + slotOffset + MEMORY_MAP.OFFSET_EV_HP,
+        value: toHex((pokemon.evHp >> 8) & 0xFF), // High byte
+        description: `파티 ${partyNum}번 - 노력치 HP (상위 바이트)`
+    });
+    entries.push({
+        address: baseAddress + slotOffset + MEMORY_MAP.OFFSET_EV_HP + 1,
+        value: toHex(pokemon.evHp & 0xFF), // Low byte
+        description: `파티 ${partyNum}번 - 노력치 HP (하위 바이트)`
+    });
+
+    // Attack EV
+    entries.push({
+        address: baseAddress + slotOffset + MEMORY_MAP.OFFSET_EV_ATTACK,
+        value: toHex((pokemon.evAttack >> 8) & 0xFF), // High byte
+        description: `파티 ${partyNum}번 - 노력치 공격 (상위 바이트)`
+    });
+    entries.push({
+        address: baseAddress + slotOffset + MEMORY_MAP.OFFSET_EV_ATTACK + 1,
+        value: toHex(pokemon.evAttack & 0xFF), // Low byte
+        description: `파티 ${partyNum}번 - 노력치 공격 (하위 바이트)`
+    });
+
+    // Defense EV
+    entries.push({
+        address: baseAddress + slotOffset + MEMORY_MAP.OFFSET_EV_DEFENSE,
+        value: toHex((pokemon.evDefense >> 8) & 0xFF), // High byte
+        description: `파티 ${partyNum}번 - 노력치 방어 (상위 바이트)`
+    });
+    entries.push({
+        address: baseAddress + slotOffset + MEMORY_MAP.OFFSET_EV_DEFENSE + 1,
+        value: toHex(pokemon.evDefense & 0xFF), // Low byte
+        description: `파티 ${partyNum}번 - 노력치 방어 (하위 바이트)`
+    });
+
+    // Speed EV
+    entries.push({
+        address: baseAddress + slotOffset + MEMORY_MAP.OFFSET_EV_SPEED,
+        value: toHex((pokemon.evSpeed >> 8) & 0xFF), // High byte
+        description: `파티 ${partyNum}번 - 노력치 스피드 (상위 바이트)`
+    });
+    entries.push({
+        address: baseAddress + slotOffset + MEMORY_MAP.OFFSET_EV_SPEED + 1,
+        value: toHex(pokemon.evSpeed & 0xFF), // Low byte
+        description: `파티 ${partyNum}번 - 노력치 스피드 (하위 바이트)`
+    });
+
+    // Special EV
+    entries.push({
+        address: baseAddress + slotOffset + MEMORY_MAP.OFFSET_EV_SPECIAL,
+        value: toHex((pokemon.evSpecial >> 8) & 0xFF), // High byte
+        description: `파티 ${partyNum}번 - 노력치 특수 (상위 바이트)`
+    });
+    entries.push({
+        address: baseAddress + slotOffset + MEMORY_MAP.OFFSET_EV_SPECIAL + 1,
+        value: toHex(pokemon.evSpecial & 0xFF), // Low byte
+        description: `파티 ${partyNum}번 - 노력치 특수 (하위 바이트)`
     });
 
     // IVs (Offset +0x15, +0x16 - bit-packed)

@@ -69,6 +69,11 @@ function formatAddress(address) {
  *   - Offset +0x01: Held Item
  *   - Offset +0x02-0x05: Moves 1-4
  *   - Offset +0x08-0x0A: Experience (3 bytes)
+ *   - Offset +0x0B-0x0C: HP EV (2 bytes, Big-Endian)
+ *   - Offset +0x0D-0x0E: Attack EV (2 bytes, Big-Endian)
+ *   - Offset +0x0F-0x10: Defense EV (2 bytes, Big-Endian)
+ *   - Offset +0x11-0x12: Speed EV (2 bytes, Big-Endian)
+ *   - Offset +0x13-0x14: Special EV (2 bytes, Big-Endian)
  *   - Offset +0x15: Attack/Defense IV (upper 4 bits / lower 4 bits)
  *   - Offset +0x16: Speed/Special IV (upper 4 bits / lower 4 bits)
  *   - Offset +0x17-0x1A: PP for moves 1-4
@@ -106,6 +111,11 @@ const MEMORY_MAP = {
     OFFSET_MOVE_3: 0x04,
     OFFSET_MOVE_4: 0x05,
     OFFSET_EXPERIENCE: 0x08,
+    OFFSET_EV_HP: 0x0B,
+    OFFSET_EV_ATTACK: 0x0D,
+    OFFSET_EV_DEFENSE: 0x0F,
+    OFFSET_EV_SPEED: 0x11,
+    OFFSET_EV_SPECIAL: 0x13,
     OFFSET_IV_ATK_DEF: 0x15,
     OFFSET_IV_SPD_SPC: 0x16,
     OFFSET_PP_1: 0x17,

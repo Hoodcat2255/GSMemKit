@@ -37,7 +37,12 @@ function createEmptySlot() {
         ivAttack: 15,
         ivDefense: 15,
         ivSpeed: 15,
-        ivSpecial: 15
+        ivSpecial: 15,
+        evHp: 0,
+        evAttack: 0,
+        evDefense: 0,
+        evSpeed: 0,
+        evSpecial: 0
     };
 }
 
@@ -334,6 +339,13 @@ function initPartyUI() {
     document.getElementById('edit-iv-defense').addEventListener('input', onFormChange);
     document.getElementById('edit-iv-speed').addEventListener('input', onFormChange);
     document.getElementById('edit-iv-special').addEventListener('input', onFormChange);
+
+    // Edit form listeners - EVs
+    document.getElementById('edit-ev-hp').addEventListener('input', onFormChange);
+    document.getElementById('edit-ev-attack').addEventListener('input', onFormChange);
+    document.getElementById('edit-ev-defense').addEventListener('input', onFormChange);
+    document.getElementById('edit-ev-speed').addEventListener('input', onFormChange);
+    document.getElementById('edit-ev-special').addEventListener('input', onFormChange);
 }
 
 /**
@@ -438,6 +450,13 @@ function renderEditArea() {
     document.getElementById('edit-iv-defense').value = slot.ivDefense;
     document.getElementById('edit-iv-speed').value = slot.ivSpeed;
     document.getElementById('edit-iv-special').value = slot.ivSpecial;
+
+    // EVs
+    document.getElementById('edit-ev-hp').value = slot.evHp;
+    document.getElementById('edit-ev-attack').value = slot.evAttack;
+    document.getElementById('edit-ev-defense').value = slot.evDefense;
+    document.getElementById('edit-ev-speed').value = slot.evSpeed;
+    document.getElementById('edit-ev-special').value = slot.evSpecial;
 }
 
 /**
@@ -524,6 +543,13 @@ function onFormChange() {
     slot.ivDefense = parseInt(document.getElementById('edit-iv-defense').value) || 0;
     slot.ivSpeed = parseInt(document.getElementById('edit-iv-speed').value) || 0;
     slot.ivSpecial = parseInt(document.getElementById('edit-iv-special').value) || 0;
+
+    // EVs
+    slot.evHp = parseInt(document.getElementById('edit-ev-hp').value) || 0;
+    slot.evAttack = parseInt(document.getElementById('edit-ev-attack').value) || 0;
+    slot.evDefense = parseInt(document.getElementById('edit-ev-defense').value) || 0;
+    slot.evSpeed = parseInt(document.getElementById('edit-ev-speed').value) || 0;
+    slot.evSpecial = parseInt(document.getElementById('edit-ev-special').value) || 0;
 
     renderSlotList();
     updatePartyCount();
