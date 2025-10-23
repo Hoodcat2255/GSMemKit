@@ -314,7 +314,8 @@ function initPartyUI() {
     // Edit form listeners - Basic Info
     document.getElementById('edit-species').addEventListener('change', onFormChange);
     document.getElementById('edit-level').addEventListener('input', onFormChange);
-    document.getElementById('edit-exp').addEventListener('input', onFormChange);
+    document.getElementById('edit-exp').addEventListener('input', onExpChange);
+    document.getElementById('edit-nature').addEventListener('change', onNatureChange);
     document.getElementById('edit-item').addEventListener('change', onFormChange);
 
     // Edit form listeners - Moves
@@ -419,9 +420,9 @@ function renderEditArea() {
     document.getElementById('edit-level').value = slot.level;
     document.getElementById('edit-exp').value = slot.exp;
 
-    // Update nature display
-    const nature = calculateNature(slot.exp || 0);
-    document.getElementById('edit-nature').innerHTML = nature.displayHTML;
+    // Update nature select
+    const natureIndex = getNatureIndex(slot.exp || 0);
+    document.getElementById('edit-nature').value = natureIndex;
 
     if (choicesInstances.item) {
         choicesInstances.item.setChoiceByValue(slot.item || '0x00');
@@ -514,6 +515,45 @@ function selectSlot(index) {
 }
 
 /**
+ * Handle experience input change
+ * Updates nature select based on new exp value
+ */
+function onExpChange() {
+    const slot = partySlots[selectedSlot];
+    const newExp = parseInt(document.getElementById('edit-exp').value) || 0;
+
+    // Update slot exp
+    slot.exp = newExp;
+
+    // Update nature select to match new exp
+    const natureIndex = getNatureIndex(newExp);
+    document.getElementById('edit-nature').value = natureIndex;
+
+    // Update other fields
+    onFormChange();
+}
+
+/**
+ * Handle nature select change
+ * Updates exp to minimum value that gives selected nature
+ */
+function onNatureChange() {
+    const slot = partySlots[selectedSlot];
+    const selectedNature = parseInt(document.getElementById('edit-nature').value);
+    const currentExp = slot.exp || 0;
+
+    // Calculate new exp that gives the selected nature
+    const newExp = calculateExpForNature(currentExp, selectedNature);
+
+    // Update exp input
+    document.getElementById('edit-exp').value = newExp;
+    slot.exp = newExp;
+
+    // Update other fields
+    onFormChange();
+}
+
+/**
  * Handle form changes
  */
 function onFormChange() {
@@ -524,10 +564,6 @@ function onFormChange() {
     slot.level = parseInt(document.getElementById('edit-level').value) || 50;
     slot.exp = parseInt(document.getElementById('edit-exp').value) || 0;
     slot.item = document.getElementById('edit-item').value;
-
-    // Update nature display when EXP changes
-    const nature = calculateNature(slot.exp);
-    document.getElementById('edit-nature').innerHTML = nature.displayHTML;
 
     // Moves
     slot.moves[0] = document.getElementById('edit-move-1').value;

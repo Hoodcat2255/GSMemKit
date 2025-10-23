@@ -56,8 +56,38 @@ function calculateNature(exp) {
         increased: increased,
         decreased: decreased,
         displayText: displayText,
-        displayHTML: displayHTML
+        displayHTML: displayHTML,
+        index: natureIndex
     };
+}
+
+/**
+ * Get nature index from experience points
+ * @param {Number} exp - Experience points
+ * @returns {Number} Nature index (0-24)
+ */
+function getNatureIndex(exp) {
+    return exp % 25;
+}
+
+/**
+ * Calculate minimum experience for a given nature that is greater than current exp
+ * @param {Number} currentExp - Current experience points
+ * @param {Number} natureIndex - Desired nature index (0-24)
+ * @returns {Number} Minimum experience for the nature
+ */
+function calculateExpForNature(currentExp, natureIndex) {
+    // currentExp보다 큰 값 중에서 % 25 = natureIndex인 최소값
+    // 공식: floor(currentExp / 25) * 25 + natureIndex
+    // 만약 이 값이 currentExp 이하면 +25
+
+    let targetExp = Math.floor(currentExp / 25) * 25 + natureIndex;
+
+    if (targetExp <= currentExp) {
+        targetExp += 25;
+    }
+
+    return targetExp;
 }
 
 /**
