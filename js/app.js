@@ -419,6 +419,10 @@ function renderEditArea() {
     document.getElementById('edit-level').value = slot.level;
     document.getElementById('edit-exp').value = slot.exp;
 
+    // Update nature display
+    const nature = calculateNature(slot.exp || 0);
+    document.getElementById('edit-nature').innerHTML = nature.displayHTML;
+
     if (choicesInstances.item) {
         choicesInstances.item.setChoiceByValue(slot.item || '0x00');
     } else {
@@ -520,6 +524,10 @@ function onFormChange() {
     slot.level = parseInt(document.getElementById('edit-level').value) || 50;
     slot.exp = parseInt(document.getElementById('edit-exp').value) || 0;
     slot.item = document.getElementById('edit-item').value;
+
+    // Update nature display when EXP changes
+    const nature = calculateNature(slot.exp);
+    document.getElementById('edit-nature').innerHTML = nature.displayHTML;
 
     // Moves
     slot.moves[0] = document.getElementById('edit-move-1').value;

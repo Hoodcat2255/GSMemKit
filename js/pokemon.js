@@ -1,6 +1,66 @@
 // ===== Pokemon Data Management =====
 
 /**
+ * Nature data for Pokemon Transporter (Korean)
+ * Index = Experience % 25
+ * Format: [name, increasedStat, decreasedStat]
+ * Stats: 공격, 방어, 특공, 특방, 스피드
+ */
+const NATURE_DATA = [
+    ['노력', null, null],           // 0 - Hardy (중립)
+    ['외로움', '공격', '방어'],      // 1 - Lonely
+    ['용감', '공격', '스피드'],      // 2 - Brave
+    ['고집', '공격', '특공'],        // 3 - Adamant
+    ['개구쟁이', '공격', '특방'],    // 4 - Naughty
+    ['대담', '방어', '공격'],        // 5 - Bold
+    ['온순', null, null],           // 6 - Docile (중립)
+    ['무사태평', '방어', '스피드'],  // 7 - Relaxed
+    ['장난꾸러기', '방어', '특공'],  // 8 - Impish
+    ['촐랑', '방어', '특방'],        // 9 - Lax
+    ['겁쟁이', '스피드', '공격'],    // 10 - Timid
+    ['성급', '스피드', '방어'],      // 11 - Hasty
+    ['성실', null, null],           // 12 - Serious (중립)
+    ['명랑', '스피드', '특공'],      // 13 - Jolly
+    ['천진난만', '스피드', '특방'],  // 14 - Naive
+    ['조심', '특공', '공격'],        // 15 - Modest
+    ['의젓', '특공', '방어'],        // 16 - Mild
+    ['냉정', '특공', '스피드'],      // 17 - Quiet
+    ['수줍음', null, null],         // 18 - Bashful (중립)
+    ['덜렁', '특공', '특방'],        // 19 - Rash
+    ['차분', '특방', '공격'],        // 20 - Calm
+    ['얌전', '특방', '방어'],        // 21 - Gentle
+    ['건방', '특방', '스피드'],      // 22 - Sassy
+    ['신중', '특방', '특공'],        // 23 - Careful
+    ['변덕', null, null]            // 24 - Quirky (중립)
+];
+
+/**
+ * Calculate nature from experience points
+ * Nature is determined by (Experience % 25) when transferred via Pokemon Transporter
+ * @param {Number} exp - Experience points
+ * @returns {Object} Nature object with name and stat changes
+ */
+function calculateNature(exp) {
+    const natureIndex = exp % 25;
+    const [name, increased, decreased] = NATURE_DATA[natureIndex];
+
+    let displayText = name;
+    let displayHTML = name;
+    if (increased && decreased) {
+        displayText += ` (${increased}↑ ${decreased}↓)`;
+        displayHTML += ` (<span style="color: #d292a3;">${increased}↑</span> <span style="color: #9aacd3;">${decreased}↓</span>)`;
+    }
+
+    return {
+        name: name,
+        increased: increased,
+        decreased: decreased,
+        displayText: displayText,
+        displayHTML: displayHTML
+    };
+}
+
+/**
  * Collect party Pokemon data from global partySlots array
  * @returns {Array} Array of pokemon objects
  */
