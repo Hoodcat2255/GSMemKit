@@ -28,12 +28,15 @@ function createEmptySlot() {
         species: '',
         level: 50,
         item: '',
+        otId: 0,
         exp: 0,
         moves: ['', '', '', ''],
         pp: [0, 0, 0, 0],
         currentHp: 100,
         maxHp: 100,
         friendship: 255,
+        pokerus: 0,
+        caughtData: 0,
         ivAttack: 15,
         ivDefense: 15,
         ivSpeed: 15,
@@ -314,6 +317,7 @@ function initPartyUI() {
     // Edit form listeners - Basic Info
     document.getElementById('edit-species').addEventListener('change', onFormChange);
     document.getElementById('edit-level').addEventListener('input', onFormChange);
+    document.getElementById('edit-ot-id').addEventListener('input', onFormChange);
     document.getElementById('edit-exp').addEventListener('input', onExpChange);
     document.getElementById('edit-nature').addEventListener('change', onNatureChange);
     document.getElementById('edit-item').addEventListener('change', onFormChange);
@@ -334,6 +338,8 @@ function initPartyUI() {
     document.getElementById('edit-current-hp').addEventListener('input', onFormChange);
     document.getElementById('edit-max-hp').addEventListener('input', onFormChange);
     document.getElementById('edit-friendship').addEventListener('input', onFormChange);
+    document.getElementById('edit-pokerus').addEventListener('input', onFormChange);
+    document.getElementById('edit-caught-data').addEventListener('input', onFormChange);
 
     // Edit form listeners - IVs
     document.getElementById('edit-iv-attack').addEventListener('input', onFormChange);
@@ -418,6 +424,7 @@ function renderEditArea() {
     }
 
     document.getElementById('edit-level').value = slot.level;
+    document.getElementById('edit-ot-id').value = slot.otId;
     document.getElementById('edit-exp').value = slot.exp;
 
     // Update nature select
@@ -449,6 +456,8 @@ function renderEditArea() {
     document.getElementById('edit-current-hp').value = slot.currentHp;
     document.getElementById('edit-max-hp').value = slot.maxHp;
     document.getElementById('edit-friendship').value = slot.friendship;
+    document.getElementById('edit-pokerus').value = slot.pokerus;
+    document.getElementById('edit-caught-data').value = slot.caughtData;
 
     // IVs
     document.getElementById('edit-iv-attack').value = slot.ivAttack;
@@ -562,6 +571,7 @@ function onFormChange() {
     // Basic Info
     slot.species = document.getElementById('edit-species').value;
     slot.level = parseInt(document.getElementById('edit-level').value) || 50;
+    slot.otId = parseInt(document.getElementById('edit-ot-id').value) || 0;
     slot.exp = parseInt(document.getElementById('edit-exp').value) || 0;
     slot.item = document.getElementById('edit-item').value;
 
@@ -581,6 +591,8 @@ function onFormChange() {
     slot.currentHp = parseInt(document.getElementById('edit-current-hp').value) || 0;
     slot.maxHp = parseInt(document.getElementById('edit-max-hp').value) || 1;
     slot.friendship = parseInt(document.getElementById('edit-friendship').value) || 0;
+    slot.pokerus = parseInt(document.getElementById('edit-pokerus').value) || 0;
+    slot.caughtData = parseInt(document.getElementById('edit-caught-data').value) || 0;
 
     // IVs
     slot.ivAttack = parseInt(document.getElementById('edit-iv-attack').value) || 0;

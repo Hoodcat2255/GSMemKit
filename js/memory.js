@@ -68,6 +68,7 @@ function formatAddress(address) {
  *   - Offset +0x00: Species ID
  *   - Offset +0x01: Held Item
  *   - Offset +0x02-0x05: Moves 1-4
+ *   - Offset +0x06-0x07: OT ID (2 bytes, Big-Endian)
  *   - Offset +0x08-0x0A: Experience (3 bytes)
  *   - Offset +0x0B-0x0C: HP EV (2 bytes, Big-Endian)
  *   - Offset +0x0D-0x0E: Attack EV (2 bytes, Big-Endian)
@@ -78,6 +79,8 @@ function formatAddress(address) {
  *   - Offset +0x16: Speed/Special IV (upper 4 bits / lower 4 bits)
  *   - Offset +0x17-0x1A: PP for moves 1-4
  *   - Offset +0x1B: Friendship
+ *   - Offset +0x1C: PokeRus
+ *   - Offset +0x1D-0x1E: Caught Data (2 bytes, bit-packed)
  *   - Offset +0x1F: Level
  *   - Offset +0x22-0x23: Current HP (2 bytes)
  *   - Offset +0x24-0x25: Max HP (2 bytes)
@@ -110,6 +113,7 @@ const MEMORY_MAP = {
     OFFSET_MOVE_2: 0x03,
     OFFSET_MOVE_3: 0x04,
     OFFSET_MOVE_4: 0x05,
+    OFFSET_OT_ID: 0x06,
     OFFSET_EXPERIENCE: 0x08,
     OFFSET_EV_HP: 0x0B,
     OFFSET_EV_ATTACK: 0x0D,
@@ -123,6 +127,8 @@ const MEMORY_MAP = {
     OFFSET_PP_3: 0x19,
     OFFSET_PP_4: 0x1A,
     OFFSET_FRIENDSHIP: 0x1B,
+    OFFSET_POKERUS: 0x1C,
+    OFFSET_CAUGHT_DATA: 0x1D,
     OFFSET_LEVEL: 0x1F,
     OFFSET_CURRENT_HP: 0x22,
     OFFSET_MAX_HP: 0x24,

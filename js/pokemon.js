@@ -115,6 +115,7 @@ function collectPartyData() {
             species: slot.species,
             level: level,
             item: slot.item || '0x00',
+            otId: parseInt(slot.otId) || 0,
             exp: parseInt(slot.exp) || 0,
             moves: [
                 slot.moves[0] || '0x00',
@@ -131,6 +132,8 @@ function collectPartyData() {
             currentHp: parseInt(slot.currentHp) || 0,
             maxHp: parseInt(slot.maxHp) || 1,
             friendship: parseInt(slot.friendship) || 0,
+            pokerus: parseInt(slot.pokerus) || 0,
+            caughtData: parseInt(slot.caughtData) || 0,
             ivAttack: parseInt(slot.ivAttack) || 0,
             ivDefense: parseInt(slot.ivDefense) || 0,
             ivSpeed: parseInt(slot.ivSpeed) || 0,
@@ -183,6 +186,19 @@ function calculatePartyMemory(pokemon) {
             description: `파티 ${partyNum}번 - 기술 ${i + 1}`
         });
     }
+
+    // OT ID (Offset +0x06, 2 bytes, big-endian)
+    const otId = pokemon.otId;
+    entries.push({
+        address: baseAddress + slotOffset + MEMORY_MAP.OFFSET_OT_ID,
+        value: toHex((otId >> 8) & 0xFF), // High byte
+        description: `파티 ${partyNum}번 - 트레이너 ID (상위 바이트)`
+    });
+    entries.push({
+        address: baseAddress + slotOffset + MEMORY_MAP.OFFSET_OT_ID + 1,
+        value: toHex(otId & 0xFF), // Low byte
+        description: `파티 ${partyNum}번 - 트레이너 ID (하위 바이트)`
+    });
 
     // Experience (Offset +0x08, 3 bytes, big-endian)
     const exp = pokemon.exp;
@@ -298,6 +314,26 @@ function calculatePartyMemory(pokemon) {
         address: baseAddress + slotOffset + MEMORY_MAP.OFFSET_FRIENDSHIP,
         value: toHex(pokemon.friendship),
         description: `파티 ${partyNum}번 - 친밀도`
+    });
+
+    // PokeRus (Offset +0x1C)
+    entries.push({
+        address: baseAddress + slotOffset + MEMORY_MAP.OFFSET_POKERUS,
+        value: toHex(pokemon.pokerus),
+        description: `파티 ${partyNum}번 - 포켓러스`
+    });
+
+    // Caught Data (Offset +0x1D, 2 bytes, big-endian)
+    const caughtData = pokemon.caughtData;
+    entries.push({
+        address: baseAddress + slotOffset + MEMORY_MAP.OFFSET_CAUGHT_DATA,
+        value: toHex((caughtData >> 8) & 0xFF), // High byte
+        description: `파티 ${partyNum}번 - 포획 데이터 (상위 바이트)`
+    });
+    entries.push({
+        address: baseAddress + slotOffset + MEMORY_MAP.OFFSET_CAUGHT_DATA + 1,
+        value: toHex(caughtData & 0xFF), // Low byte
+        description: `파티 ${partyNum}번 - 포획 데이터 (하위 바이트)`
     });
 
     // Pokemon Level (Offset +0x1F)
