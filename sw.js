@@ -1,5 +1,5 @@
 // Service Worker for GSMemKit
-const CACHE_NAME = 'gsmemkit-v1.1.0';
+const CACHE_NAME = 'gsmemkit-v1.2.0';
 const urlsToCache = [
   '/GSMemKit/',
   '/GSMemKit/index.html',
